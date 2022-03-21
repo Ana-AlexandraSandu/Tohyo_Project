@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
-import io from 'socket.io-client';
 import socket from "../../index";
-import {Box, Paper, Typography} from "@mui/material";
+import {Box, Typography} from "@mui/material";
 import Cards from "./Cards";
 import CoffeeIcon from '@mui/icons-material/Coffee';
 
@@ -12,6 +11,7 @@ const Room = ({room, username }) =>{
     console.log(room);
     console.log(username);
     const sendMessage = async () => {
+        console.log(currentMessage);
         if (currentMessage !== "") {
             const messageData = {
                 room: room,
@@ -34,52 +34,11 @@ const Room = ({room, username }) =>{
             setMessageList((list) => [...list, data]);
         });
     }, [socket]);
-    const handleSelectCard = () =>{
-
+    const handleSelectCard = (message) =>{
+        setCurrentMessage(message);
+        sendMessage();
     }
-
-
-    /* return (
-         <div className="chat-window">
-             <div className="chat-header">
-                 <p>Live Chat</p>
-             </div>
-             <div className="chat-body">
-                     {messageList.map((messageContent) => {
-                         return (
-                             <div key={messageContent.id}
-                                 className="message"
-                                 id={username === messageContent.author ? "you" : "other"}
-                             >
-                                 <div>
-                                     <div className="message-content">
-                                         <p>{messageContent.message}</p>
-                                     </div>
-                                     <div className="message-meta">
-                                         <p id="time">{messageContent.time}</p>
-                                         <p id="author">{messageContent.author}</p>
-                                     </div>
-                                 </div>
-                             </div>
-                         );
-                     })}
-             </div>
-             <div className="chat-footer">
-                 <input
-                     type="text"
-                     value={currentMessage}
-                     placeholder="Hey..."
-                     onChange={(event) => {
-                         setCurrentMessage(event.target.value);
-                     }}
-                     onKeyPress={(event) => {
-                         event.key === "Enter" && sendMessage();
-                     }}
-                 />
-                 <button onClick={sendMessage}>&#9658;</button>
-             </div>
-         </div>
-     );*/
+console.log(messageList);
     return (
         <>
             <Typography variant="h3" component="h3" margin={'10px'} align={"center"}>
@@ -99,15 +58,15 @@ const Room = ({room, username }) =>{
                     height: 90,
                 },
             }}>
-                <Cards number={1} onClick={handleSelectCard}/>
-                <Cards number={2} onClick={handleSelectCard}/>
-                <Cards number={3} onClick={handleSelectCard}/>
-                <Cards number={5} onClick={handleSelectCard}/>
-                <Cards number={8} onClick={handleSelectCard}/>
-                <Cards number={13} onClick={handleSelectCard}/>
-                <Cards number={20} onClick={handleSelectCard}/>
-                <Cards number={40} onClick={handleSelectCard}/>
-                <Cards number={100} onClick={handleSelectCard}/>
+                <Cards number={1} sendMessage={sendMessage} setCurrentMessage={setCurrentMessage}/>
+                <Cards number={2} sendMessage={sendMessage} setCurrentMessage={setCurrentMessage}/>
+                <Cards number={3} sendMessage={sendMessage} setCurrentMessage={setCurrentMessage}/>
+                <Cards number={5} sendMessage={sendMessage} setCurrentMessage={setCurrentMessage}/>
+                <Cards number={8} sendMessage={sendMessage} setCurrentMessage={setCurrentMessage}/>
+                <Cards number={13} sendMessage={sendMessage} setCurrentMessage={setCurrentMessage}/>
+                <Cards number={20} sendMessage={sendMessage} setCurrentMessage={setCurrentMessage}/>
+                <Cards number={40} sendMessage={sendMessage} setCurrentMessage={setCurrentMessage}/>
+                <Cards number={100} sendMessage={sendMessage} setCurrentMessage={setCurrentMessage}/>
                 <Cards number={'?'} onClick={handleSelectCard}/>
                 <Cards number={<CoffeeIcon/>} onClick={handleSelectCard}/>
             </Box>

@@ -1,11 +1,12 @@
-import {Box, Paper, Typography} from "@mui/material";
+import { Paper, Typography} from "@mui/material";
 import React from "react";
 
 
 const Cards = (props) =>{
-    const {number} = props;
+    const {number, sendMessage, setCurrentMessage} = props;
     const handleClick = () =>{
-        console.log("Heei");
+        setCurrentMessage(number);
+        sendMessage();
     }
     return (
         <Paper elevation={3} onClick={() => handleClick()}>
