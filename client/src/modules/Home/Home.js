@@ -1,7 +1,5 @@
 import {Box, Button, Paper, Stack, TextField, Typography} from "@mui/material";
-import {useEffect, useState} from "react";
-import io from 'socket.io-client';
-import Room from "../Room/Room";
+import { useState} from "react";
 import React from 'react';
 import {Notify} from "notiflix";
 import { useNavigate } from 'react-router-dom'
@@ -13,9 +11,9 @@ const Home = (props) =>
     const [username, setUsername] = useState("");
     const navigate = useNavigate();
     const {handleRoom} = props;
-    const [newRoom, setNewRoom] = useState(false);
+    //const [newRoom, setNewRoom] = useState(false);
 
-    //ToDO de facut un array pentru a retine camerele in front si petru a le sterge dupa ce nimeni nu mai este prezent
+    //ToDO retinerea camerelor care sunt utilizate
 
     const joinRoom = () => {
         //if(!activeRooms.includes(room)){
